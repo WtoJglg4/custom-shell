@@ -43,12 +43,14 @@ void cat_command(const std::string &filename) {
 
 void nice_command(int priority, const std::vector<std::string>& args) {
     if (args.empty()) {
+        // Changes currenc process
         if (setpriority(PRIO_PROCESS, 0, priority) == -1) {
             std::cerr << "Не удалось изменить приоритет текущего процесса" << std::endl;
         } else {
             std::cout << "Приоритет текущего процесса изменен на " << priority << std::endl;
         }
     } else {
+        // Changes fors prioritet
         pid_t pid = fork();
         if (pid == 0) {
             setpriority(PRIO_PROCESS, 0, priority);
@@ -136,21 +138,16 @@ void execute_command(const std::string &input) {
 }
 
 int main() {
-
     signal(SIGINT, signal_handler);
-
     std::string input;
-
     while (true) {
         std::cout << "> ";
         std::getline(std::cin, input);
-
         if (input == "exit") {
             signal_handler(SIGINT);
         } else {
             execute_command(input);
         }
     }
-
     return 0;
 }
