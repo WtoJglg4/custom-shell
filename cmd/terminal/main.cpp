@@ -140,7 +140,6 @@ int main() {
     signal(SIGINT, signal_handler);
 
     std::string input;
-    std::cout << "Добро пожаловать в собственный терминал! (нажмите CTRL+C для выхода)\n";
 
     while (true) {
         std::cout << "> ";
